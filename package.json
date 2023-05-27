@@ -1,0 +1,12 @@
+{
+  "name": "rest_api-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "git@github.com:MaciejMl/rest_api-server.git",
+  "author": "MaciejMl <szypki@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.1",
+    "nodemon": "2.0.22"
+  }
+}
