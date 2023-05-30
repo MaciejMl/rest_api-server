@@ -9,14 +9,20 @@ router.route('/seats').get((req, res) => {
 });
 
 router.route('/seats/add-element').post((req, res) => {
-  const { day, seat, client, email } = req.body;
+  let { day, seat, client, email } = req.body;
+  day = Number(day);
+  seat = Number(seat);
+
   db.seats.push({ id: uuid, day, seat, client, email });
   res.json({ message: 'OK' });
 });
 
 router.route('/seats/:id').put((req, res) => {
-  const { day, seat, client, email } = req.body;
+  let { day, seat, client, email } = req.body;
   const id = req.params.id;
+  day = Number(day);
+  seat = Number(seat);
+
   let item = db.seats.find((data) => data.id == id);
 
   if (item) {
