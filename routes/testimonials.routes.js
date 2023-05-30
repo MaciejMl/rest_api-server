@@ -14,23 +14,23 @@ router.route('/testimonials/add-element').post((req, res) => {
   res.json({ message: 'OK' });
 });
 
-router.route('/testimonials/:id').put((req, res, next) => {
+router.route('/testimonials/:id').put((req, res) => {
   const { author, text } = req.body;
   const id = req.params.id;
-  let item = db.testimonials.find((data) => data.id === id);
+  let item = db.testimonials.find((data) => data.id == id);
 
   if (item) {
     item.author = author;
     item.text = text;
     res.json({ message: 'OK' });
   } else {
-    next();
+    res.status(404).json({ message: 'Element not found...' });
   }
 });
 
 router.route('/testimonials/:id').delete((req, res) => {
   const id = req.params.id;
-  let itemIndex = db.testimonials.findIndex((data) => data.id === id);
+  let itemIndex = db.testimonials.findIndex((data) => data.id == id);
 
   if (itemIndex !== -1) {
     db.testimonials.splice(itemIndex, 1);

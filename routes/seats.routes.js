@@ -10,14 +10,14 @@ router.route('/seats').get((req, res) => {
 
 router.route('/seats/add-element').post((req, res) => {
   const { day, seat, client, email } = req.body;
-  db.testimonials.push({ id: uuid, day, seat, client, email });
+  db.seats.push({ id: uuid, day, seat, client, email });
   res.json({ message: 'OK' });
 });
 
-router.route('/seats/:id').put((req, res, next) => {
+router.route('/seats/:id').put((req, res) => {
   const { day, seat, client, email } = req.body;
   const id = req.params.id;
-  let item = db.seats.find((data) => data.id === id);
+  let item = db.seats.find((data) => data.id == id);
 
   if (item) {
     item.day = day;
@@ -26,13 +26,13 @@ router.route('/seats/:id').put((req, res, next) => {
     item.email = email;
     res.json({ message: 'OK' });
   } else {
-    next();
+    res.status(404).json({ message: 'Element not found...' });
   }
 });
 
 router.route('/seats/:id').delete((req, res) => {
   const id = req.params.id;
-  let item = db.seats.findIndex((data) => data.id === id);
+  let item = db.seats.findIndex((data) => data.id == id);
 
   if (item !== -1) {
     db.seats.splice(item, 1);
@@ -42,7 +42,7 @@ router.route('/seats/:id').delete((req, res) => {
   }
 });
 
-router.route('/seats/:id').get((req, res, next) => {
+router.route('/seats/:id').get((req, res) => {
   const id = req.params.id;
   const item = db.seats.find((data) => data.id == id);
 
