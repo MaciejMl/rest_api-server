@@ -8,13 +8,21 @@ router.route('/seats').get((req, res) => {
   res.json(db.seats);
 });
 
-router.route('/seats/add-element').post((req, res) => {
+router.route('/seats').post((req, res) => {
   let { day, seat, client, email } = req.body;
   day = Number(day);
   seat = Number(seat);
 
-  db.seats.push({ id: uuid, day, seat, client, email });
-  res.json({ message: 'OK' });
+  const isSeatTaken = db.seats.find(
+    (existingSeat) => existingSeat.day === day && existingSeat.seat === seat
+  );
+
+  if (isSeatTaken) {
+    res.status(409).json({ message: 'The slot is already taken...' });
+  } else {
+    db.seats.push({ id: uuid, day, seat, client, email });
+    res.json({ message: 'OK' });
+  }
 });
 
 router.route('/seats/:id').put((req, res) => {

@@ -10,21 +10,19 @@ router.route('/concerts').get((req, res) => {
   res.json(db.concerts);
 });
 
-router
-  .route('/concerts/add-element')
-  .post(upload.single('image'), (req, res) => {
-    const { performer, genre, price, day } = req.body;
-    const image = `/img/uploads/${req.file.originalname}`;
-    db.concerts.push({
-      id: uuid,
-      performer,
-      genre,
-      price,
-      day,
-      image,
-    });
-    res.json({ message: 'OK' });
+router.route('/concerts').post(upload.single('image'), (req, res) => {
+  const { performer, genre, price, day } = req.body;
+  const image = `/img/uploads/${req.file.originalname}`;
+  db.concerts.push({
+    id: uuid,
+    performer,
+    genre,
+    price,
+    day,
+    image,
   });
+  res.json({ message: 'OK' });
+});
 
 router.route('/concerts/:id').put(upload.single('image'), (req, res) => {
   const { performer, genre, price, day } = req.body;

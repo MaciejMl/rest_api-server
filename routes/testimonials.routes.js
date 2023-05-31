@@ -8,7 +8,7 @@ router.route('/testimonials').get((req, res) => {
   res.json(db.testimonials);
 });
 
-router.route('/testimonials/add-element').post((req, res) => {
+router.route('/testimonials').post((req, res) => {
   const { author, text } = req.body;
   db.testimonials.push({ id: uuid, author, text });
   res.json({ message: 'OK' });
